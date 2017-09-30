@@ -1,8 +1,3 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import CreateShelter from './CreateShelter';
 
-export default () => (
-  <View style={{ paddingTop: 100 }}>
-    <Text>hi</Text>
-  </View>
-);
+export default CreateShelter;
