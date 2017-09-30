@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Alert, Image, Text, Platform, TouchableHighlight, View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-elements';
 
-import Logo from './shelter.png';
-
 const styles = StyleSheet.create({
   lolpadding: {
     flex: 1,
@@ -44,7 +42,7 @@ export default () => (
 
     <Image
       source={{
-        uri: '',
+        uri: 'https://github.com/benawad/shelter-client/raw/master/src/shelter.png',
       }}
       style={styles.image}
     />
@@ -57,9 +55,7 @@ export default () => (
           fontWeight="bold"
           iconLeft={{ name: 'home' }}
           title="HOSTS"
-        >
-          <Text style={styles.buttonText}>placement</Text>
-        </Button>
+        />
       </View>
       <View style={styles.userButton}>
         <Button
@@ -68,9 +64,7 @@ export default () => (
           fontWeight="bold"
           iconLeft={{ name: 'user' }}
           title="GUESTS"
-        >
-          <Text style={styles.buttonText}>placement2</Text>
-        </Button>
+        />
       </View>
     </View>
   </View>
