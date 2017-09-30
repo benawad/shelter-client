@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Alert, Image, Text, Platform, TouchableHighlight, View, StyleSheet } from 'react-native';
+import React from 'react';
+import { Image, View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-elements';
 
 const styles = StyleSheet.create({
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default () => (
+const Home = ({ history }) => (
   <View style={{ flex: 1, justifyContent: 'space-around' }}>
     <View style={styles.lolpadding} />
 
@@ -55,6 +55,7 @@ export default () => (
           fontWeight="bold"
           iconLeft={{ name: 'home' }}
           title="HOSTS"
+          onPress={() => history.push('/DonorRegister')}
         />
       </View>
       <View style={styles.userButton}>
@@ -64,8 +65,11 @@ export default () => (
           fontWeight="bold"
           iconLeft={{ name: 'user' }}
           title="GUESTS"
+          onPress={() => history.push('/GuestRegister')}
         />
       </View>
     </View>
   </View>
 );
+
+export default Home;
