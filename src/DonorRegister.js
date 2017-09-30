@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { Button, FormValidationMessage, FormLabel, FormInput } from 'react-native-elements';
 
 import { colors } from './constants';
+import Container from './Container';
 
 export default class DonorRegister extends React.Component {
   state = {
@@ -19,7 +20,7 @@ export default class DonorRegister extends React.Component {
 
   render() {
     return (
-      <View style={{ paddingTop: 50 }}>
+      <Container>
         <FormLabel>Name</FormLabel>
         <FormInput onChangeText={text => this.handleTextChange('name', text)} />
         <FormLabel>Email</FormLabel>
@@ -33,7 +34,7 @@ export default class DonorRegister extends React.Component {
           large
           raised
         />
-      </View>
+      </C>
     );
   }
 }

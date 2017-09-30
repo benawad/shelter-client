@@ -9,6 +9,7 @@ import {
 } from 'react-native-elements';
 
 import { colors } from './constants';
+import Container from './Container';
 
 export default class CreateShelter extends React.Component {
   state = {
@@ -29,7 +30,7 @@ export default class CreateShelter extends React.Component {
     const { address, description, shower, occupancy } = this.state;
 
     return (
-      <View style={{ paddingTop: 50 }}>
+      <Container>
         <FormLabel>Address</FormLabel>
         <FormInput value={address} onChangeText={text => this.handleTextChange('address', text)} />
         <FormLabel>Description</FormLabel>
@@ -62,7 +63,7 @@ export default class CreateShelter extends React.Component {
           large
           raised
         />
-      </View>
+      </Container>
     );
   }
 }
