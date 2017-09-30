@@ -1,16 +1,19 @@
 import React from 'react';
-import ShelterDetails from './ShelterDetails';
+// import ShelterDetails from './ShelterDetails';
+import GuestRegister from './GuestRegister';
 
-export default () => (
-  <ShelterDetails
-    {...{
-      id: 1,
-      occupancy: 12,
-      address: '123 ok drive',
-      food: true,
-      shower: true,
-      description:
-        'I am a description that could possibley really really long because people woudl put all kidns of stuf fher eso  we should accompnay for that and have our desisng handle that because it would be awful if it didnt 22 bby',
-    }}
-  />
-);
+export default GuestRegister;
+
+// export default () => (
+//   <ShelterDetails
+//     {...{
+//       id: 1,
+//       occupancy: 12,
+//       address: '123 ok drive',
+//       food: true,
+//       shower: true,
+//       description:
+//         'I am a description that could possibley really really long because people woudl put all kidns of stuf fher eso  we should accompnay for that and have our desisng handle that because it would be awful if it didnt 22 bby',
+//     }}
+//   />
+// );

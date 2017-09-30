@@ -5,11 +5,10 @@ import { Button, FormValidationMessage, FormLabel, FormInput } from 'react-nativ
 import { colors } from './constants';
 import Container from './Container';
 
-export default class DonorRegister extends React.Component {
+export default class GuestRegister extends React.Component {
   state = {
     name: '',
-    email: '',
-    password: '',
+    phoneNumber: '',
   };
 
   handleTextChange = (field, text) => {
@@ -19,18 +18,22 @@ export default class DonorRegister extends React.Component {
   };
 
   render() {
+    const { name, phoneNumber } = this.state;
+
     return (
       <Container>
         <FormLabel>Name</FormLabel>
-        <FormInput onChangeText={text => this.handleTextChange('name', text)} />
-        <FormLabel>Email</FormLabel>
-        <FormInput onChangeText={text => this.handleTextChange('email', text)} />
-        <FormLabel>Password</FormLabel>
-        <FormInput onChangeText={text => this.handleTextChange('password', text)} secureTextEntry />
+        <FormInput value={name} onChangeText={text => this.handleTextChange('name', text)} />
+        <FormLabel>Phone number</FormLabel>
+        <FormInput
+          keyboardType="phone-pad"
+          value={phoneNumber}
+          onChangeText={text => this.handleTextChange('phoneNumber', text)}
+        />
         <Button
           backgroundColor={colors.primary}
           title="Submit"
-          style={{ marginTop: 400 }}
+          style={{ marginTop: 500 }}
           large
           raised
         />
