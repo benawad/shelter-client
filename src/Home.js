@@ -42,7 +42,12 @@ export default () => (
   <View style={{ flex: 1, justifyContent: 'space-around' }}>
     <View style={styles.lolpadding} />
 
-    <Image source={Logo} style={styles.image} />
+    <Image
+      source={{
+        uri: '',
+      }}
+      style={styles.image}
+    />
 
     <View style={styles.buttons}>
       <View style={styles.donorButton}>
