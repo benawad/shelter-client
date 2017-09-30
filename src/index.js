@@ -1,8 +1,20 @@
 import React from 'react';
-// import ShelterDetails from './ShelterDetails';
+import { View } from 'react-native';
+import { NativeRouter, Route } from 'react-router-native';
+
+import Home from './Home';
+import CreateShelter from './CreateShelter';
 import GuestRegister from './GuestRegister';
 
-export default GuestRegister;
+export default () => (
+  <NativeRouter>
+    <View>
+      <Route exact path="/" component={Home} />
+      <Route path="/create-shelter" component={CreateShelter} />
+      <Route path="/guest-register" component={GuestRegister} />
+    </View>
+  </NativeRouter>
+);
 
 // export default () => (
 //   <ShelterDetails
