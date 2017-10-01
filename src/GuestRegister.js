@@ -27,37 +27,31 @@ class GuestRegister extends React.Component {
     const { name, phoneNumber } = this.state;
 
     return (
-      <Container>
-        <Header />
-        <Content>
-          <Form>
-            <Item>
-              <Input
-                onChangeText={text => this.handleTextChange('name', text)}
-                placeholder="Name"
-              />
-            </Item>
-            <Item last>
-              <Input
-                onChangeText={text => this.handleTextChange('phoneNumber', text)}
-                placeholder="Phone Number"
-              />
-            </Item>
-            <Button
-              style={{
-                backgroundColor: colors.primary,
-                marginLeft: 10,
-                marginRight: 10,
-                marginTop: 20,
-              }}
-              block
-              onPress={this.submit}
-            >
-              <Text style={{ fontSize: 20, color: '#FFF' }}>Submit</Text>
-            </Button>
-          </Form>
-        </Content>
-      </Container>
+      <Content>
+        <Form>
+          <Item>
+            <Input onChangeText={text => this.handleTextChange('name', text)} placeholder="Name" />
+          </Item>
+          <Item last>
+            <Input
+              onChangeText={text => this.handleTextChange('phoneNumber', text)}
+              placeholder="Phone Number"
+            />
+          </Item>
+          <Button
+            style={{
+              backgroundColor: colors.primary,
+              marginLeft: 10,
+              marginRight: 10,
+              marginTop: 20,
+            }}
+            block
+            onPress={this.submit}
+          >
+            <Text style={{ fontSize: 20, color: '#FFF' }}>Submit</Text>
+          </Button>
+        </Form>
+      </Content>
     );
   }
 }
