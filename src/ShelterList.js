@@ -1,18 +1,6 @@
 import React from 'react';
-import { TouchableOpacity, Image } from 'react-native';
-import {
-  Container,
-  Header,
-  Content,
-  Card,
-  CardItem,
-  Text,
-  Button,
-  Icon,
-  Left,
-  Body,
-  Right,
-} from 'native-base';
+import { Alert, TouchableOpacity, Image } from 'react-native';
+import { Content, Card, CardItem, Text, Button, Icon, Left, Body, Right } from 'native-base';
 import { graphql, gql } from 'react-apollo';
 
 const ShelterCard = ({ pictureUrl, shower, food, occupancy, onClick }) => (
@@ -48,17 +36,33 @@ const ShelterCard = ({ pictureUrl, shower, food, occupancy, onClick }) => (
   </TouchableOpacity>
 );
 
-const ShelterList = ({ data: { allShelters = [] }, history }) => (
-  <Content>
-    {allShelters.map(shelter => (
-      <ShelterCard
-        key={shelter.id}
-        {...shelter}
-        onClick={() => history.push('/ShelterDetails', shelter)}
-      />
-    ))}
-  </Content>
-);
+class ShelterList extends React.Component {
+  componentDidMount() {
+    if (this.props.location.state) {
+      Alert.alert(
+        'Request Sent',
+        "You have been added to the host's list, please wait for confirmation",
+        [{ text: 'OK' }],
+        { cancelable: true },
+      );
+    }
+  }
+
+  render() {
+    const { data: { allShelters = [] }, history } = this.props;
+    return (
+      <Content>
+        {allShelters.map(shelter => (
+          <ShelterCard
+            key={shelter.id}
+            {...shelter}
+            onClick={() => history.push('/ShelterDetails', shelter)}
+          />
+        ))}
+      </Content>
+    );
+  }
+}
 
 const allSheltersQuery = gql`
   {

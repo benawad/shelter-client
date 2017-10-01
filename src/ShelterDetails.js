@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
-import { Item, Input, Content, Button, Icon } from 'native-base';
+import { Toast, Item, Input, Content, Button, Icon } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { graphql, gql } from 'react-apollo';
 
@@ -11,13 +11,16 @@ class ShelterDetails extends React.Component {
     rooms: '',
   };
 
-  submit = () => {
-    this.props.mutate({
+  submit = async () => {
+    await this.props.mutate({
       variables: {
         rooms: this.state.rooms,
         shelterId: this.props.location.state.id,
       },
     });
+
+    this.props.history.push('/shelters', true);
+    this.props.history.replace('/shelters');
   };
 
   render() {
