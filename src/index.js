@@ -1,6 +1,18 @@
 import React from 'react';
 import { AsyncStorage, View } from 'react-native';
-import { Right, Icon, Left, Header, Container, Body, Title } from 'native-base';
+import {
+  Footer,
+  FooterTab,
+  Button,
+  Text,
+  Right,
+  Icon,
+  Left,
+  Header,
+  Container,
+  Body,
+  Title,
+} from 'native-base';
 import { Switch, Router, Route } from 'react-router-native';
 import { ApolloClient, createNetworkInterface, ApolloProvider } from 'react-apollo';
 import createHistory from 'history/createMemoryHistory';
@@ -65,11 +77,13 @@ export default () => (
                 </Body>
                 <Right />
               </Header>
-              <Route exact path="/GuestRegister" component={GuestRegister} />
-              <Route exact path="/DonorRegister" component={DonorRegister} />
-              <Route exact path="/CreateShelter" component={CreateShelter} />
-              <Route exact path="/shelters" component={ShelterList} />
-              <Route exact path="/ShelterDetails" component={ShelterDetails} />
+              <Switch>
+                <Route exact path="/GuestRegister" component={GuestRegister} />
+                <Route exact path="/CreateShelter" component={CreateShelter} />
+                <Route exact path="/shelters" component={ShelterList} />
+                <Route exact path="/ShelterDetails" component={ShelterDetails} />
+                <Route exact path="/DonorRegister" component={DonorRegister} />
+              </Switch>
             </Container>
           </Route>
         </Switch>
