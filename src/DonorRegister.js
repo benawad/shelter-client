@@ -21,19 +21,20 @@ export default class DonorRegister extends React.Component {
   render() {
     return (
       <Container>
-        <FormLabel>Name</FormLabel>
-        <FormInput onChangeText={text => this.handleTextChange('name', text)} />
-        <FormLabel>Email</FormLabel>
-        <FormInput onChangeText={text => this.handleTextChange('email', text)} />
-        <FormLabel>Password</FormLabel>
-        <FormInput onChangeText={text => this.handleTextChange('password', text)} secureTextEntry />
-        <Button
-          backgroundColor={colors.primary}
-          title="Submit"
-          style={{ marginTop: 400 }}
-          large
-          raised
-        />
+        <View style={{ flex: 8 }}>
+          <FormLabel>Name</FormLabel>
+          <FormInput onChangeText={text => this.handleTextChange('name', text)} />
+          <FormLabel>Email</FormLabel>
+          <FormInput onChangeText={text => this.handleTextChange('email', text)} />
+          <FormLabel>Password</FormLabel>
+          <FormInput
+            onChangeText={text => this.handleTextChange('password', text)}
+            secureTextEntry
+          />
+        </View>
+        <View style={{ flex: 1 }}>
+          <Button backgroundColor={colors.primary} title="Submit" large raised />
+        </View>
       </Container>
     );
   }
