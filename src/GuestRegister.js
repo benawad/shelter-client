@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { AsyncStorage, View, Text } from 'react-native';
 import { Button, Container, Header, Content, Form, Item, Input } from 'native-base';
 import { graphql, gql } from 'react-apollo';
 
@@ -11,10 +11,18 @@ class GuestRegister extends React.Component {
     phoneNumber: '',
   };
 
-  submit = () => {
-    this.props.mutate({
-      variables: this.state,
-    });
+  submit = async () => {
+    try {
+      const response = await this.props.mutate({
+        variables: this.state,
+      });
+
+      AsyncStorage.setItem('guestId', `${response.data.createGuest.guest.id}`);
+    } catch (e) {
+      console.log(e);
+    }
+
+    this.props.history.push('/Shelters');
   };
 
   handleTextChange = (field, text) => {
@@ -27,7 +35,7 @@ class GuestRegister extends React.Component {
     const { name, phoneNumber } = this.state;
 
     return (
-      <Content>
+      <View>
         <Form>
           <Item>
             <Input onChangeText={text => this.handleTextChange('name', text)} placeholder="Name" />
@@ -51,7 +59,7 @@ class GuestRegister extends React.Component {
             <Text style={{ fontSize: 20, color: '#FFF' }}>Submit</Text>
           </Button>
         </Form>
-      </Content>
+      </View>
     );
   }
 }
@@ -63,6 +71,9 @@ const createGuestMutation = gql`
       errors {
         path
         message
+      }
+      guest {
+        id
       }
     }
   }

@@ -2,12 +2,22 @@ import React from 'react';
 import { View, Text, Image } from 'react-native';
 import { Item, Input, Content, Button, Icon } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
+import { graphql, gql } from 'react-apollo';
 
 import { colors } from './constants';
 
-export default class ShelterDetails extends React.Component {
+class ShelterDetails extends React.Component {
   state = {
     rooms: '',
+  };
+
+  submit = () => {
+    this.props.mutate({
+      variables: {
+        rooms: this.state.rooms,
+        shelterId: this.props.location.state.id,
+      },
+    });
   };
 
   render() {
@@ -68,6 +78,7 @@ export default class ShelterDetails extends React.Component {
               marginRight: 10,
               marginTop: 20,
             }}
+            onPress={this.submit}
             block
           >
             <Text style={{ fontSize: 20, color: '#FFF' }}>Request Housing</Text>
@@ -77,3 +88,17 @@ export default class ShelterDetails extends React.Component {
     );
   }
 }
+
+const shelterRequestMutation = gql`
+  mutation($shelterId: Int!, $rooms: Int!) {
+    createShelterRequest(shelterId: $shelterId, rooms: $rooms) {
+      ok
+      errors {
+        path
+        message
+      }
+    }
+  }
+`;
+
+export default graphql(shelterRequestMutation)(ShelterDetails);

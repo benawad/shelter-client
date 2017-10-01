@@ -39,7 +39,7 @@ class DonorRegister extends React.Component {
     const { name, email, password } = this.state;
 
     return (
-      <Content>
+      <View>
         <Form>
           <Item>
             <Input onChangeText={text => this.handleTextChange('name', text)} placeholder="Name" />
@@ -69,7 +69,7 @@ class DonorRegister extends React.Component {
             <Text style={{ fontSize: 20, color: '#FFF' }}>Submit</Text>
           </Button>
         </Form>
-      </Content>
+      </View>
     );
   }
 }
