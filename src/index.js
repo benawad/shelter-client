@@ -1,6 +1,7 @@
 import React from 'react';
+import { View } from 'react-native';
 import { Right, Icon, Left, Header, Container, Body, Title } from 'native-base';
-import { Router, Route } from 'react-router-native';
+import { Switch, Router, Route } from 'react-router-native';
 import { ApolloClient, createNetworkInterface, ApolloProvider } from 'react-apollo';
 import createHistory from 'history/createMemoryHistory';
 
@@ -24,23 +25,29 @@ const client = new ApolloClient({
 export default () => (
   <Router history={history}>
     <ApolloProvider client={client}>
-      <Container>
-        <Header>
-          <Left>
-            <Icon onPress={() => history.goBack()} name="arrow-back" />
-          </Left>
-          <Body>
-            <Title>Shelter</Title>
-          </Body>
-          <Right />
-        </Header>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/GuestRegister" component={GuestRegister} />
-        <Route exact path="/DonorRegister" component={DonorRegister} />
-        <Route exact path="/CreateShelter" component={CreateShelter} />
-        {/* <Route exact path="/" component={ShelterList} />
+      <View style={{ flex: 1 }}>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/">
+            <Container>
+              <Header>
+                <Left>
+                  <Icon onPress={() => history.goBack()} name="arrow-back" />
+                </Left>
+                <Body>
+                  <Title>Shelter</Title>
+                </Body>
+                <Right />
+              </Header>
+              <Route exact path="/GuestRegister" component={GuestRegister} />
+              <Route exact path="/DonorRegister" component={DonorRegister} />
+              <Route exact path="/CreateShelter" component={CreateShelter} />
+              {/* <Route exact path="/" component={ShelterList} />
         <Route exact path="/ShelterDetails" component={ShelterDetails} /> */}
-      </Container>
+            </Container>
+          </Route>
+        </Switch>
+      </View>
     </ApolloProvider>
   </Router>
 );
