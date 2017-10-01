@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { CheckBox, FormValidationMessage, FormLabel, FormInput } from 'react-native-elements';
 import { Button, Text } from 'native-base';
 
@@ -9,6 +9,7 @@ import Footer from './Footer';
 
 export default class CreateShelter extends React.Component {
   state = {
+    name: '',
     address: '',
     description: '',
     occupancy: '0',
@@ -23,10 +24,12 @@ export default class CreateShelter extends React.Component {
   };
 
   render() {
-    const { address, description, shower, occupancy } = this.state;
+    const { name, address, description, shower, occupancy } = this.state;
 
     return (
-      <Footer acceptPage={false}>
+      <Footer history={this.props.history} acceptPage={false}>
+        <FormLabel>Name</FormLabel>
+        <FormInput value={name} onChangeText={text => this.handleTextChange('name', text)} />
         <FormLabel>Address</FormLabel>
         <FormInput value={address} onChangeText={text => this.handleTextChange('address', text)} />
         <FormLabel>Description</FormLabel>
@@ -56,7 +59,13 @@ export default class CreateShelter extends React.Component {
           style={styles.button}
           iconLeft
           block
-          onPress={() => history.push('/    GuestRegister')}
+          onPress={() =>
+            Alert.alert(
+              'Thank you for hosting!',
+              'On the next page, you can accept guests',
+              [{ text: 'OK', onPress: () => this.props.history('/GuestList') }],
+              { cancelable: false },
+            )}
         >
           <Text style={styles.buttonText}>Submit</Text>
         </Button>

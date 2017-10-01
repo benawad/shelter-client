@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { AsyncStorage, View, Text } from 'react-native';
 import {
   ListItem,
   Body,
@@ -25,9 +25,11 @@ class DonorRegister extends React.Component {
   };
 
   submit = async () => {
-    await this.props.mutate({
+    const response = await this.props.mutate({
       variables: this.state,
     });
+
+    AsyncStorage.setItem('donorId', `${response.data.createDonor.donor.id}`);
 
     this.props.history.push('/CreateShelter');
   };
@@ -79,6 +81,9 @@ const createDonorMutation = gql`
       errors {
         path
         message
+      }
+      donor {
+        id
       }
     }
   }

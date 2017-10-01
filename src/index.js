@@ -56,6 +56,15 @@ networkInterface.use([
       } catch (e) {
         console.log(e);
       }
+
+      try {
+        const donorId = await AsyncStorage.getItem('donorId');
+        if (donorId) {
+          req.options.headers['x-donor-id'] = donorId;
+        }
+      } catch (e) {
+        console.log(e);
+      }
       next();
     },
   },
@@ -84,6 +93,7 @@ export default () => (
                 <Route exact path="/shelters" component={ShelterList} />
                 <Route exact path="/ShelterDetails" component={ShelterDetails} />
                 <Route exact path="/DonorRegister" component={DonorRegister} />
+                <Route exact path="/GuestList" component={GuestList} />
               </Switch>
             </Container>
           </Route>
