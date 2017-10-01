@@ -11,6 +11,7 @@ import DonorRegister from './DonorRegister';
 import CreateShelter from './CreateShelter';
 import ShelterDetails from './ShelterDetails';
 import ShelterList from './ShelterList';
+import GuestList from './GuestList';
 
 const history = createHistory();
 
