@@ -5,6 +5,7 @@ import { Button, Text } from 'native-base';
 
 import { colors } from './constants';
 import { styles } from './myStyles';
+import Footer from './Footer';
 
 export default class CreateShelter extends React.Component {
   state = {
@@ -25,7 +26,7 @@ export default class CreateShelter extends React.Component {
     const { address, description, shower, occupancy } = this.state;
 
     return (
-      <View>
+      <Footer acceptPage={false}>
         <FormLabel>Address</FormLabel>
         <FormInput value={address} onChangeText={text => this.handleTextChange('address', text)} />
         <FormLabel>Description</FormLabel>
@@ -59,7 +60,7 @@ export default class CreateShelter extends React.Component {
         >
           <Text style={styles.buttonText}>Submit</Text>
         </Button>
-      </View>
+      </Footer>
     );
   }
 }

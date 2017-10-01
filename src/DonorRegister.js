@@ -24,10 +24,12 @@ class DonorRegister extends React.Component {
     password: '',
   };
 
-  submit = () => {
-    this.props.mutate({
+  submit = async () => {
+    await this.props.mutate({
       variables: this.state,
     });
+
+    this.props.history.push('/CreateShelter');
   };
 
   handleTextChange = (field, text) => {
