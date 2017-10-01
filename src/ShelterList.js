@@ -67,6 +67,8 @@ const allSheltersQuery = gql`
       occupancy
       food
       shower
+      description
+      pictureUrl
     }
   }
 `;

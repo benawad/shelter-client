@@ -34,12 +34,12 @@ export default () => (
           </Body>
           <Right />
         </Header>
-        {/* <Route exact path="/" component={Home} />
+        <Route exact path="/" component={Home} />
         <Route exact path="/GuestRegister" component={GuestRegister} />
         <Route exact path="/DonorRegister" component={DonorRegister} />
-        <Route exact path="/CreateShelter" component={CreateShelter} /> */}
-        <Route exact path="/" component={ShelterList} />
-        <Route exact path="/ShelterDetails" component={ShelterDetails} />
+        <Route exact path="/CreateShelter" component={CreateShelter} />
+        {/* <Route exact path="/" component={ShelterList} />
+        <Route exact path="/ShelterDetails" component={ShelterDetails} /> */}
       </Container>
     </ApolloProvider>
   </Router>
