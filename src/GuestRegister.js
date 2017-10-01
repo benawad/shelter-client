@@ -12,6 +12,12 @@ class GuestRegister extends React.Component {
     phoneNumber: '',
   };
 
+  submit = () => {
+    this.props.mutate({
+      variables: this.state,
+    });
+  };
+
   handleTextChange = (field, text) => {
     this.setState({
       [field]: text,
@@ -38,11 +44,18 @@ class GuestRegister extends React.Component {
                 placeholder="Phone Number"
               />
             </Item>
-            <Item>
-              <Button block>
-                <Text>Submit</Text>
-              </Button>
-            </Item>
+            <Button
+              style={{
+                backgroundColor: colors.primary,
+                marginLeft: 10,
+                marginRight: 10,
+                marginTop: 20,
+              }}
+              block
+              onPress={this.submit}
+            >
+              <Text style={{ fontSize: 20, color: '#FFF' }}>Submit</Text>
+            </Button>
           </Form>
         </Content>
       </Container>
@@ -62,5 +75,4 @@ const createGuestMutation = gql`
   }
 `;
 
-// export default graphql(createGuestMutation)(GuestRegister);
-export default GuestRegister;
+export default graphql(createGuestMutation)(GuestRegister);
