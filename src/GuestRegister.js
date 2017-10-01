@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { FormValidationMessage, FormLabel, FormInput } from 'react-native-elements';
 import { Button, Container, Header, Content, Form, Item, Input } from 'native-base';
 import { graphql, gql } from 'react-apollo';
 

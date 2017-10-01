@@ -1,15 +1,32 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Button, FormValidationMessage, FormLabel, FormInput } from 'react-native-elements';
+import { View, Text } from 'react-native';
+import {
+  ListItem,
+  Body,
+  CheckBox,
+  Button,
+  Container,
+  Header,
+  Content,
+  Form,
+  Item,
+  Input,
+} from 'native-base';
+import { graphql, gql } from 'react-apollo';
 
 import { colors } from './constants';
-import Container from './Container';
 
-export default class DonorRegister extends React.Component {
+class DonorRegister extends React.Component {
   state = {
     name: '',
     email: '',
     password: '',
+  };
+
+  submit = () => {
+    this.props.mutate({
+      variables: this.state,
+    });
   };
 
   handleTextChange = (field, text) => {
@@ -19,23 +36,60 @@ export default class DonorRegister extends React.Component {
   };
 
   render() {
+    const { name, email, password } = this.state;
+
     return (
       <Container>
-        <View style={{ flex: 8 }}>
-          <FormLabel>Name</FormLabel>
-          <FormInput onChangeText={text => this.handleTextChange('name', text)} />
-          <FormLabel>Email</FormLabel>
-          <FormInput onChangeText={text => this.handleTextChange('email', text)} />
-          <FormLabel>Password</FormLabel>
-          <FormInput
-            onChangeText={text => this.handleTextChange('password', text)}
-            secureTextEntry
-          />
-        </View>
-        <View style={{ flex: 1 }}>
-          <Button backgroundColor={colors.primary} title="Submit" large raised />
-        </View>
+        <Header />
+        <Content>
+          <Form>
+            <Item>
+              <Input
+                onChangeText={text => this.handleTextChange('name', text)}
+                placeholder="Name"
+              />
+            </Item>
+            <Item last>
+              <Input
+                onChangeText={text => this.handleTextChange('email', text)}
+                placeholder="Email"
+              />
+            </Item>
+            <Item last>
+              <Input
+                onChangeText={text => this.handleTextChange('password', text)}
+                placeholder="Password"
+              />
+            </Item>
+            <Button
+              style={{
+                backgroundColor: colors.primary,
+                marginLeft: 10,
+                marginRight: 10,
+                marginTop: 20,
+              }}
+              block
+              onPress={this.submit}
+            >
+              <Text style={{ fontSize: 20, color: '#FFF' }}>Submit</Text>
+            </Button>
+          </Form>
+        </Content>
       </Container>
     );
   }
 }
+
+const createDonorMutation = gql`
+  mutation($name: String!, $email: String!, $password: String!) {
+    createDonor(name: $name, email: $email, password: $password) {
+      ok
+      errors {
+        path
+        message
+      }
+    }
+  }
+`;
+
+export default graphql(createDonorMutation)(DonorRegister);
