@@ -33,7 +33,7 @@ const history = createHistory();
 // });
 
 const networkInterface = createNetworkInterface({
-  uri: 'http://localhost:3030/graphql',
+  uri: 'https://e49ee5cb.ngrok.io/graphql',
 });
 
 // const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(networkInterface, wsClient);
