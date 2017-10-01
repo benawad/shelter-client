@@ -2,14 +2,15 @@ import React from 'react';
 import { View } from 'react-native';
 import {
   CheckBox,
-  Button,
   FormValidationMessage,
   FormLabel,
   FormInput,
 } from 'react-native-elements';
+import{Button, Text} from 'native-base';
 
 import { colors } from './constants';
 import Container from './Container';
+import {styles} from './myStyles';
 
 export default class CreateShelter extends React.Component {
   state = {
@@ -56,13 +57,9 @@ export default class CreateShelter extends React.Component {
           onPress={() => this.setState(state => ({ food: !state.food }))}
         />
 
-        <Button
-          backgroundColor={colors.primary}
-          title="Submit"
-          style={{ marginTop: 300 }}
-          large
-          raised
-        />
+        <Button style={styles.button} iconLeft block onPress={() => history.push('/    GuestRegister')}>
+					<Text style={styles.buttonText}>Submit</Text>
+				</Button>
       </Container>
     );
   }
