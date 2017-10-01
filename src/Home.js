@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, View, StyleSheet } from 'react-native';
-import { Button } from 'react-native-elements';
+import {Container, Header, Content, Button, Text} from 'native-base';
 
 const styles = StyleSheet.create({
   lolpadding: {
@@ -33,42 +33,33 @@ const styles = StyleSheet.create({
   buttonText: {
     padding: 20,
     color: 'white',
+		fontWeight: 'bold',
   },
 });
 
 const Home = ({ history }) => (
   <View style={{ flex: 1, justifyContent: 'space-around' }}>
-    <View style={styles.lolpadding} />
-
+		<View style={styles.lolpadding} />
     <Image
       source={{
         uri: 'https://github.com/benawad/shelter-client/raw/master/src/shelter.png',
-      }}
+			 }}
       style={styles.image}
     />
 
     <View style={styles.buttons}>
       <View style={styles.donorButton}>
-        <Button
-          large
-          backgroundColor="#79BD9A"
-          fontWeight="bold"
-          iconLeft={{ name: 'home' }}
-          title="HOSTS"
-          onPress={() => history.push('/DonorRegister')}
-        />
+        <Button block style={{backgroundColor: '#3B8686'}} onPress={() => history.push('/DonorRegister')}>
+					<Text style={styles.buttonText}>HOSTS</Text>
+				</Button>
       </View>
-      <View style={styles.userButton}>
-        <Button
-          large
-          backgroundColor="#79BD9A"
-          fontWeight="bold"
-          iconLeft={{ name: 'user' }}
-          title="GUESTS"
-          onPress={() => history.push('/GuestRegister')}
-        />
+      
+			<View style={styles.userButton}>
+        <Button block style={{backgroundColor: '#3B8686'}} onPress={() => history.push('/GuestRegister')}>
+					<Text style={styles.buttonText}>GUESTS</Text>
+        </Button>
       </View>
-    </View>
+		</View>
   </View>
 );
 
