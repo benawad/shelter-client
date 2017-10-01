@@ -1,16 +1,75 @@
 import React from 'react';
-import { Body, Content, List, ListItem, Text } from 'native-base';
-import { compose, graphql, gql } from 'react-apollo';
+import { View } from 'react-native';
+import { Button, Icon, Body, Content, List, ListItem, Text } from 'native-base';
+import { graphql, gql } from 'react-apollo';
 
-const Request = ({ first, last, mutate, guestId, shelterId, name, phoneNumber, rooms }) => (
-  <ListItem first={first} last={last}>
-    <Body>
-      <Text>{name}</Text>
-      <Text>{phoneNumber}</Text>
-      <Text>{`${rooms}`}</Text>
+const guestListQuery = gql`
+  {
+    guestList {
+      rooms
+      shelter {
+        id
+        name
+      }
+      guest {
+        id
+        name
+        phoneNumber
+      }
+    }
+  }
+`;
+
+const handleMutate = (mutate, guestId, shelterId, accepted) => {
+  mutate({
+    variables: { guestId, shelterId, accepted },
+    update: (store) => {
+      const data = store.readQuery({ query: guestListQuery });
+      data.guestList = data.guestList.filter(
+        x => x.shelter.id !== shelterId || x.guest.id !== guestId,
+      );
+      store.writeQuery({ query: guestListQuery, data });
+    },
+  });
+};
+
+const request = ({ first, last, mutate, guestId, shelterId, name, phoneNumber, rooms }) => (
+  <ListItem style={{ flex: 1, flexDirection: 'row' }} first={first} last={last}>
+    <View style={{ flex: 1 }}>
+      <Button onPress={() => handleMutate(mutate, guestId, shelterId, true)} success>
+        <Icon name="checkmark" />
+      </Button>
+    </View>
+    <Body style={{ flex: 4, flexDirection: 'row' }}>
+      <View style={{ flex: 1 }}>
+        <Text>{name}</Text>
+        <Text>{phoneNumber}</Text>
+      </View>
+      <View style={{ flex: 1 }}>
+        <Text>{`Rooms: ${rooms}`}</Text>
+      </View>
     </Body>
+    <View style={{ flex: 1 }}>
+      <Button onPress={() => handleMutate(mutate, guestId, shelterId, false)} danger>
+        <Icon name="close" />
+      </Button>
+    </View>
   </ListItem>
 );
+
+const decideOnGuestMutation = gql`
+  mutation($accepted: Boolean!, $shelterId: Int!, $guestId: Int!) {
+    decideOnGuest(guestId: $guestId, shelterId: $shelterId, accepted: $accepted) {
+      ok
+      errors {
+        path
+        message
+      }
+    }
+  }
+`;
+
+const Request = graphql(decideOnGuestMutation)(request);
 
 const GuestList = ({ data: { loading, guestList = [] } }) => {
   if (loading) {
@@ -47,7 +106,7 @@ const GuestList = ({ data: { loading, guestList = [] } }) => {
               <Request
                 first={i === 0}
                 last={i === theList.length - 1}
-                key={`${x.shelter.id}|${x.guest.id}`}
+                key={i}
                 shelterId={x.shelter.id}
                 guestId={x.guest.id}
                 name={x.guest.name}
@@ -61,31 +120,4 @@ const GuestList = ({ data: { loading, guestList = [] } }) => {
   );
 };
 
-const decideOnGuestMutation = gql`
-  mutation($accepted: Boolean!, $requestId: Int!) {
-    decideOnGuest(requestId: $requestId, accepted: $acceptedId) {
-      ok
-      errors {
-        path
-        message
-      }
-    }
-  }
-`;
-
-const guestListQuery = gql`
-  {
-    guestList {
-      rooms
-      shelter {
-        name
-      }
-      guest {
-        name
-        phoneNumber
-      }
-    }
-  }
-`;
-
-export default compose(graphql(guestListQuery), graphql(decideOnGuestMutation))(GuestList);
+export default graphql(guestListQuery)(GuestList);

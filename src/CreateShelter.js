@@ -63,7 +63,7 @@ export default class CreateShelter extends React.Component {
             Alert.alert(
               'Thank you for hosting!',
               'On the next page, you can accept guests',
-              [{ text: 'OK', onPress: () => this.props.history('/GuestList') }],
+              [{ text: 'OK', onPress: () => this.props.history.push('/GuestList') }],
               { cancelable: false },
             )}
         >
