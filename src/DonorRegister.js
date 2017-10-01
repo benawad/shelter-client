@@ -24,6 +24,11 @@ class DonorRegister extends React.Component {
     password: '',
   };
 
+  componentWillMount = async () => {
+    await AsyncStorage.setItem('donorId', '1');
+    this.props.history.push('/CreateShelter');
+  };
+
   submit = async () => {
     const response = await this.props.mutate({
       variables: this.state,

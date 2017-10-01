@@ -1,59 +1,91 @@
-import React,{Component} from 'react';
-import {ListView,Alert,View} from 'react-native';
-import {Button, Icon, List, ListItem, Text} from 'native-base';
-import {colors} from './constants';
+import React from 'react';
+import { Body, Content, List, ListItem, Text } from 'native-base';
+import { compose, graphql, gql } from 'react-apollo';
 
-const people=[
-	'placeholder1',
-	'placeholder2',
-];
+const Request = ({ first, last, mutate, guestId, shelterId, name, phoneNumber, rooms }) => (
+  <ListItem first={first} last={last}>
+    <Body>
+      <Text>{name}</Text>
+      <Text>{phoneNumber}</Text>
+      <Text>{`${rooms}`}</Text>
+    </Body>
+  </ListItem>
+);
 
-export default class GuestList extends Component{
-	constructor(props){
-		super(props);
-		this.ppl = new ListView.DataSource({ rowHasChanged:(r1,r2) =>r1 !== r2});
-		this.state={
-			basic: true,
-			listViewData: people,
-		};
-	}
-	
-	deleteRow(secId, rowId, rowMap){
-		rowMap[`${secId}${rowId}`].props.closeRow();
-		const newData = [...this.state.listViewData];
-		newData.splice(rowId,1);
-		this.setState({listViewData: newData});
-	}
+const GuestList = ({ data: { loading, guestList = [] } }) => {
+  if (loading) {
+    return null;
+  }
 
-	render(){
-		const ppl = new ListView.DataSource({rowHasChanged:(r1,r2) => r1!==r2});
-		return(
-		<View>
-			<List
-				dataSource={this.ppl.cloneWithRows(this.state.listViewData)}
-				renderRow={people =>
-					<ListItem>
-						<Text> {people} </Text>
-					</ListItem>
-				}
-				renderLeftHiddenRow={(people,secId,rowId,rowMap) =>
-					<Button full danger onPress ={_ => this.deleteRow(secId,rowId,rowMap)}>
-						<Icon active name ="close-circle" />
-					</Button>
-				}
-				renderRightHiddenRow={people =>
-					<Button full style={{backgroundColor:colors.primary}} onPress={() => Alert.alert('people')}>
-						<Icon active name="checkmark-circle" />
-					</Button>
-				}
-				leftOpenValue={75}
-				rightOpenValue={-75}
-			/>
-		</View>
-		);
-	}
-}
+  const lists = {};
 
+  guestList.forEach((x) => {
+    if (x.shelter.name in lists) {
+      lists[x.shelter.name].push(x);
+    } else {
+      lists[x.shelter.name] = [x];
+    }
+  });
 
+  const theList = [];
 
+  Object.entries(lists).forEach(([k, v]) => {
+    theList.push({ title: k });
+    theList.push(...v);
+  });
 
+  return (
+    <Content>
+      <List>
+        {theList.map(
+          (x, i) =>
+            (x.title ? (
+              <ListItem itemDivider key={x.title} first={i === 0} last={i === theList.length - 1}>
+                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{x.title}</Text>
+              </ListItem>
+            ) : (
+              <Request
+                first={i === 0}
+                last={i === theList.length - 1}
+                key={`${x.shelter.id}|${x.guest.id}`}
+                shelterId={x.shelter.id}
+                guestId={x.guest.id}
+                name={x.guest.name}
+                phoneNumber={x.guest.phoneNumber}
+                rooms={x.rooms}
+              />
+            )),
+        )}
+      </List>
+    </Content>
+  );
+};
+
+const decideOnGuestMutation = gql`
+  mutation($accepted: Boolean!, $requestId: Int!) {
+    decideOnGuest(requestId: $requestId, accepted: $acceptedId) {
+      ok
+      errors {
+        path
+        message
+      }
+    }
+  }
+`;
+
+const guestListQuery = gql`
+  {
+    guestList {
+      rooms
+      shelter {
+        name
+      }
+      guest {
+        name
+        phoneNumber
+      }
+    }
+  }
+`;
+
+export default compose(graphql(guestListQuery), graphql(decideOnGuestMutation))(GuestList);
