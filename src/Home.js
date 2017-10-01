@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, View, StyleSheet } from 'react-native';
-import {Container, Header, Content, Button, Text} from 'native-base';
+import {Icon, Button, Text} from 'native-base';
 
 const styles = StyleSheet.create({
   lolpadding: {
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     flex: 3,
   },
 
-  buttons: {
+  buttonContainer: {
     flex: 5,
     justifyContent: 'center',
     alignItems: 'stretch',
@@ -29,6 +29,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
   },
+	
+	button:{
+		marginLeft:10,
+		marginRight:10,
+		backgroundColor: '#3B8686',
+	},
 
   buttonText: {
     padding: 20,
@@ -47,15 +53,17 @@ const Home = ({ history }) => (
       style={styles.image}
     />
 
-    <View style={styles.buttons}>
+    <View style={styles.buttonContainer}>
       <View style={styles.donorButton}>
-        <Button block style={{backgroundColor: '#3B8686'}} onPress={() => history.push('/DonorRegister')}>
+        <Button iconLeft block style={styles.button} onPress={() => history.push('/DonorRegister')}>
+					<Icon name='home' />
 					<Text style={styles.buttonText}>HOSTS</Text>
 				</Button>
       </View>
       
 			<View style={styles.userButton}>
-        <Button block style={{backgroundColor: '#3B8686'}} onPress={() => history.push('/GuestRegister')}>
+        <Button iconLeft block style={styles.button} onPress={() => history.push('/GuestRegister')}>
+					<Icon name ='person' />
 					<Text style={styles.buttonText}>GUESTS</Text>
         </Button>
       </View>
