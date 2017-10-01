@@ -15,12 +15,12 @@ import {
 } from 'native-base';
 import { graphql, gql } from 'react-apollo';
 
-const ShelterCard = ({ shower, food, occupancy, onClick }) => (
+const ShelterCard = ({ pictureUrl, shower, food, occupancy, onClick }) => (
   <TouchableOpacity onPress={onClick}>
     <Card>
-      {null && (
+      {pictureUrl && (
         <CardItem cardBody>
-          <Image source={{}} style={{ height: 200, width: null, flex: 1 }} />
+          <Image source={{ uri: pictureUrl }} style={{ height: 200, width: null, flex: 1 }} />
         </CardItem>
       )}
       <CardItem>

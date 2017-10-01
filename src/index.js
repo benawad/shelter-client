@@ -27,7 +27,7 @@ export default () => (
     <ApolloProvider client={client}>
       <View style={{ flex: 1 }}>
         <Switch>
-          <Route exact path="/" component={Home} />
+          {/* <Route exact path="/" component={Home} /> */}
           <Route path="/">
             <Container>
               <Header>
@@ -39,11 +39,11 @@ export default () => (
                 </Body>
                 <Right />
               </Header>
-              <Route exact path="/GuestRegister" component={GuestRegister} />
+              {/* <Route exact path="/GuestRegister" component={GuestRegister} />
               <Route exact path="/DonorRegister" component={DonorRegister} />
-              <Route exact path="/CreateShelter" component={CreateShelter} />
-              {/* <Route exact path="/" component={ShelterList} />
-        <Route exact path="/ShelterDetails" component={ShelterDetails} /> */}
+              <Route exact path="/CreateShelter" component={CreateShelter} /> */}
+              <Route exact path="/" component={ShelterList} />
+              <Route exact path="/ShelterDetails" component={ShelterDetails} />
             </Container>
           </Route>
         </Switch>
