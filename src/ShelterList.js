@@ -1,19 +1,65 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
-import { Icon, Card, ListItem, Button } from 'react-native-elements';
-
-import Container from './Container';
+import { Image } from 'react-native';
+import {
+  Container,
+  Header,
+  Content,
+  Card,
+  CardItem,
+  Text,
+  Button,
+  Icon,
+  Left,
+  Body,
+  Right,
+} from 'native-base';
+import { graphql, gql } from 'react-apollo';
 
 const ShelterCard = ({ shower, food, occupancy }) => (
   <Card>
-    <View>
-      <Text style={{ fontSize: 22 }}>Occupancy: {occupancy}</Text>
-      {food && <Text style={{ fontSize: 20 }}>🍽 Food Available</Text>}
-      {shower && <Text style={{ fontSize: 20 }}>🚿 Shower Available</Text>}
-    </View>
+    <CardItem cardBody>
+      <Image source={{}} style={{ height: 200, width: null, flex: 1 }} />
+    </CardItem>
+    <CardItem>
+      <Left>
+        {food && (
+          <Button transparent>
+            <Icon active name="thumbs-up" />
+            <Text>Food Available</Text>
+          </Button>
+        )}
+      </Left>
+      <Body>
+        {shower && (
+          <Button transparent>
+            <Icon active name="chatbubbles" />
+            <Text>Shower Available</Text>
+          </Button>
+        )}
+      </Body>
+      <Right>
+        <Text>Occupancy: {occupancy}</Text>
+      </Right>
+    </CardItem>
   </Card>
 );
 
-export default ({ shelters }) => (
-  <Container>{shelters.map(shelter => <ShelterCard key={shelter.id} {...shelter} />)}</Container>
+const ShelterList = ({ data: { allShelters = [] } }) => (
+  <Container>
+    <Header />
+    <Content>{allShelters.map(shelter => <ShelterCard key={shelter.id} {...shelter} />)}</Content>
+  </Container>
 );
+
+const allSheltersQuery = gql`
+  {
+    allShelters {
+      id
+      occupancy
+      food
+      shower
+    }
+  }
+`;
+
+export default graphql(allSheltersQuery)(ShelterList);
