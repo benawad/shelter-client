@@ -28,18 +28,20 @@ import GuestList from './GuestList';
 
 const history = createHistory();
 
-// const wsClient = new SubscriptionClient('ws://localhost:3030/subscriptions', {
-//   reconnect: true,
-// });
+const host = 'e49ee5cb.ngrok.io';
 
-const networkInterface = createNetworkInterface({
-  uri: 'https://e49ee5cb.ngrok.io/graphql',
+const wsClient = new SubscriptionClient(`ws://${host}/subscriptions`, {
+  reconnect: true,
 });
 
-// const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(networkInterface, wsClient);
+const networkInterface = createNetworkInterface({
+  uri: `https://${host}/graphql`,
+});
+
+const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(networkInterface, wsClient);
 
 const client = new ApolloClient({
-  networkInterface,
+  networkInterface: networkInterfaceWithSubscriptions,
 });
 
 networkInterface.use([
