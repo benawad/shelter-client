@@ -3,12 +3,14 @@ import { Alert, TouchableOpacity, Image } from 'react-native';
 import { Content, Card, CardItem, Text, Button, Icon, Left, Body, Right } from 'native-base';
 import { graphql, gql } from 'react-apollo';
 
+import House from './house.jpeg';
+
 const ShelterCard = ({ pictureUrl, shower, food, occupancy, onClick }) => (
   <TouchableOpacity onPress={onClick}>
     <Card>
       {pictureUrl && (
         <CardItem cardBody>
-          <Image source={{ uri: pictureUrl }} style={{ height: 200, width: null, flex: 1 }} />
+          <Image source={House} style={{ height: 200, width: null, flex: 1 }} />
         </CardItem>
       )}
       <CardItem>

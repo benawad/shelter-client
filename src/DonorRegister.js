@@ -26,6 +26,7 @@ class DonorRegister extends React.Component {
 
   componentWillMount = async () => {
     await AsyncStorage.setItem('donorId', '1');
+    this.props.history.replace('/');
     this.props.history.push('/CreateShelter');
   };
 

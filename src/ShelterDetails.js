@@ -4,6 +4,7 @@ import { Toast, Item, Input, Content, Button, Icon } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { graphql, gql } from 'react-apollo';
 
+import House from './house.jpeg';
 import { colors } from './constants';
 
 class ShelterDetails extends React.Component {
@@ -31,7 +32,7 @@ class ShelterDetails extends React.Component {
       <View style={{ flex: 1 }}>
         <View style={{ flex: 3 }}>
           <Content>
-            <Image source={{ uri: pictureUrl }} style={{ height: 200, width: null, flex: 1 }} />
+            <Image source={House} style={{ height: 200, width: null, flex: 1 }} />
             <Grid>
               <Row>
                 <Col size={1}>

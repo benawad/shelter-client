@@ -11,6 +11,12 @@ class GuestRegister extends React.Component {
     phoneNumber: '',
   };
 
+  componentWillMount = async () => {
+    await AsyncStorage.setItem('guestId', '1');
+    this.props.history.replace('/');
+    this.props.history.push('/Shelters');
+  };
+
   submit = async () => {
     try {
       const response = await this.props.mutate({

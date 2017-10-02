@@ -16,7 +16,6 @@ import {
 import { Switch, Router, Route } from 'react-router-native';
 import { ApolloClient, createNetworkInterface, ApolloProvider } from 'react-apollo';
 import createHistory from 'history/createMemoryHistory';
-import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
 
 import Home from './Home';
 import GuestRegister from './GuestRegister';
@@ -28,20 +27,14 @@ import GuestList from './GuestList';
 
 const history = createHistory();
 
-const host = 'e49ee5cb.ngrok.io';
-
-const wsClient = new SubscriptionClient(`ws://${host}/subscriptions`, {
-  reconnect: true,
-});
+const host = 'localhost:3030';
 
 const networkInterface = createNetworkInterface({
-  uri: `https://${host}/graphql`,
+  uri: `http://${host}/graphql`,
 });
 
-const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(networkInterface, wsClient);
-
 const client = new ApolloClient({
-  networkInterface: networkInterfaceWithSubscriptions,
+  networkInterface,
 });
 
 networkInterface.use([
